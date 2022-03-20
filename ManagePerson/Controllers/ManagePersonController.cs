@@ -17,18 +17,23 @@ namespace ManagePerson.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet("Email")]
+        [HttpGet("GetByEmail")]
         public async Task<IActionResult> Get(string email)
         {
-            var query = new GetPersonByEmailQuery{ Email = email };
-            return Ok(await mediator.Send(query));
+            var query = new GetPersonByEmailQuery { Email = email };
+            var result = await mediator.Send(query);
+            if (result.Count > 0)
+                return Ok(result);
+            return NotFound();
         }
 
-        [HttpPost()]
+        [HttpPut("UpdateByEmail")]
         public async Task<IActionResult> Update(EditPersonByEmailCommand editCommand)
         {
-            
-            return Ok(await mediator.Send(editCommand));
+            var result = await mediator.Send(editCommand);
+            if (result.Count > 0)
+                return Ok(result);
+            return NotFound();
         }
 
 

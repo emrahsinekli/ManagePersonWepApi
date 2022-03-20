@@ -27,7 +27,10 @@ namespace ManagePerson
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var assembly = AppDomain.CurrentDomain.Load("CQRS");
+            services.AddMediatR(assembly);
             services.AddMediatR(typeof(Startup));
+    
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
