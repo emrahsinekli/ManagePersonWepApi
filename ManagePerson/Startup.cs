@@ -30,7 +30,7 @@ namespace ManagePerson
             var assembly = AppDomain.CurrentDomain.Load("CQRS");
             services.AddMediatR(assembly);
             services.AddMediatR(typeof(Startup));
-    
+            services.AddScoped<IMediator, Mediator>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
